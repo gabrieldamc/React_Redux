@@ -1,0 +1,29 @@
+{
+  "name": "projeto",
+  "version": "1.0.0",
+  "description": "Projeto final react server",
+  "main": "loader.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gabrieldamc/React_Redux.git"
+  },
+  "author": "Gabriel Damico",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gabrieldamc/React_Redux/issues"
+  },
+  "homepage": "https://github.com/gabrieldamc/React_Redux#readme",
+  "devDependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.7.1",
+    "node-restful": "^0.2.6"
+  },
+  "dependencies": {
+    "nodemon": "^1.19.2"
+  }
+}
