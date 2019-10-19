@@ -6,9 +6,6 @@ import '../node_modules/bootstrap/dist/js/bootstrap.min';
 import '../node_modules/jquery/dist/jquery.min';
 import '../node_modules/popper.js/dist/umd/popper.min';
 
-
-import Curso from './pages/cursos'
-import Contato from './pages/contato'
 import Menu from './components/menu'
 import Rotas from './routes';
 
