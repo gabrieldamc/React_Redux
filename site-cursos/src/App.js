@@ -10,7 +10,7 @@ import '../node_modules/popper.js/dist/umd/popper.min';
 import Curso from './pages/cursos'
 import Contato from './pages/contato'
 import Menu from './components/menu'
-
+import Rotas from './routes';
 
 
 function App() {
@@ -18,11 +18,8 @@ function App() {
     <div className="App">
       <header className="App-header">
 
-        <Menu></Menu>
-
-        <Curso></Curso>
-
-        <Contato></Contato>
+        <Menu/>
+        <Rotas/>
 
       </header>
     </div>
