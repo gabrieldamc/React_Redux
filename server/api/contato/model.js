@@ -1,11 +1,17 @@
-//criando o schema
+// criando o schema
 const restful = require('node-restful');
-const mongoose = restful.mongoose; //referencia ao mongoose do restful
-//definindo o schema contato
-const contatoSchema = new mongoose.Schema({
- data: { type: Date },
- nome: { type: String },
- email: {type: String},
- assunto: { type: String }
+
+// referencia ao moongose do resft 
+const moongose = restful.mongoose;
+
+// definindo o schema contato
+const contatoSchema = new moongose.Schema({
+
+    codigo: { type: Number, required: true },
+    nome:   { type: String, required: true },
+    email:  { type: String, required: true },
+    menssagem: { type: String, required: true }
+
 });
+
 module.exports = restful.model('contato', contatoSchema);

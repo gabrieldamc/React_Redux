@@ -1,7 +1,7 @@
 //serviços rest
-const contato = require('./model');
+const Contato = require('./model');
 
-contato.methods(['get', 'post', 'delete']);
-contato.updateOptions({ new: true, runValidators: true });
+Contato.methods(['get', 'post', 'put', 'delete']);
+Contato.updateOptions({new: true, runValidators: true});
 
-module.exports = contato;
+module.exports = Contato;

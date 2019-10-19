@@ -1,7 +1,7 @@
 //serviços rest
-const curso = require('./model');
+const Curso = require('./model');
 
-curso.methods(['get', 'post', 'put', 'delete']);
-curso.updateOptions({ new: true, runValidators: true });
+Curso.methods(['get', 'post', 'put', 'delete']);
+Curso.updateOptions({ new: true, runValidators: true });
 
-module.exports = curso;
+module.exports = Curso;
