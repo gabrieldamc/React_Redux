@@ -68,6 +68,9 @@ export default class Formulario extends React.Component {
                             className="btn btn-primary ml-3 mb-3">
                             {this.props.textoBotao}
                         </button>
+                        <button onClick={this.props.limpar} className="btn btn-primary ml-3 mb-3">                        
+                        limpar
+                        </button>
                     </div>
                 </form>
             </div>

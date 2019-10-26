@@ -110,6 +110,11 @@ export default class Cadastro extends React.Component {
      
     }
 
+    limpar = function(e){
+        e.preventDefault();
+        this.setState({...this.initialState, data : this.state.data})
+    }
+
     alteraCampos = function (target) {
         switch (target.id) {
             case 'codigo':
@@ -144,6 +149,7 @@ export default class Cadastro extends React.Component {
                         categoria={this.state.categoria}
                         adicionarCurso={this.adicionarCurso.bind(this)}
                         textoBotao={this.state._id && this.state._id !=='' ? 'Atualizar' : 'Adicionar'}
+                        limpar={this.limpar.bind(this)}
                     />
                 </div>
                 <div className="col-md-6">
