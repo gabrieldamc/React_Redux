@@ -1,25 +1,32 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import React from 'react'
+import {connect} from 'react-redux'
+import { bindActionCreators } from 'redux'
 import {
     alteraData,
+    alteraAssunto,
     alteraNome,
     alteraEmail,
-    alteraAssunto,
     adicionaContato
-} from '../../../actions/contato-actions';
+} from '../../../actions/contato-actions'
 
-class FormContato extends Component {
-    adicionar = function (e) {
+class FormContato extends React.Component {
+    
+    adicionar = function(e) {
         e.preventDefault();
-        this.props.adicionaContato(
-            this.props.data,
-            this.props.nome,
-            this.props.email,
-            this.props.assunto);
-        alert('Contato adicionado com sucesso!');
+
+        const {adicionaContato, data, nome, email, assunto} = this.props
+
+        adicionaContato(data, 
+            nome, 
+            email, 
+            assunto)
+        alert('Contato enviado com sucesso')
     }
+    
     render() {
+
+        const {data, assunto, email, nome, alteraAssunto, alteraData, alteraEmail, alteraNome} = this.props
+
         return (<div>
             <h3 className="border-bottom">Formulario</h3>
             <form>
@@ -29,8 +36,8 @@ class FormContato extends Component {
                     <div className="col-sm-5 col-6">
                         <input type="date"
                             className="form-control" id="data"
-                            value={this.props.data}
-                            onChange={this.props.alteraData} />
+                            value={data}
+                            onChange={alteraData}/>
                     </div>
                 </div>
                 <div className="form-group row">
@@ -39,9 +46,8 @@ class FormContato extends Component {
                     <div className="col-sm-9">
                         <input type="text"
                             className="form-control" id="nome"
-                            value={this.props.nome}
-                            onChange={this.props.alteraNome}
-                        />
+                            value={nome}
+                            onChange={alteraNome} />
                     </div>
                 </div>
                 <div className="form-group row">
@@ -50,8 +56,8 @@ class FormContato extends Component {
                     <div className="col-sm-9">
                         <input type="email"
                             className="form-control" id="email"
-                            value={this.props.email}
-                            onChange={this.props.alteraEmail} />
+                            value={email}
+                            onChange={alteraEmail} />
                     </div>
                 </div>
                 <div className="form-group row">
@@ -60,36 +66,37 @@ class FormContato extends Component {
                     <div className="col-sm-9">
                         <textarea className="form-control"
                             id="assunto" rows="5"
-                            value={this.props.assunto}
-                            onChange={this.props.alteraAssunto} />
+                            value={assunto}
+                            onChange={alteraAssunto} />
                     </div>
                 </div>
                 <div className="form-group row">
-                    <button className="btn btn-primary ml-3 mb-3" onClick={this.adicionar.bind(this)}>
+
+                    <button 
+                        className="btn btn-primary ml-3 mb-3"
+                        onClick={this.adicionar.bind(this)}>
                         Adicionar
-</button>
+                    </button>
                 </div>
             </form>
-        </div>)
+        </div>
+        )
     }
 }
 
-//state é o store
 const mapStateToProps = state => ({
-    data: state.contato.data,
-    nome: state.contato.nome,
-    email: state.contato.email,
-    assunto: state.contato.assunto
-})
+    data : state.contato.data,
+    nome : state.contato.nome,
+    email : state.contato.email,
+    assunto : state.contato.assunto
+}) 
 
 const mapDispatchToProps = dispatch => bindActionCreators({
     alteraData,
-    alteraNome,
-    alteraEmail,
     alteraAssunto,
+    alteraEmail,
+    alteraNome,
     adicionaContato
 }, dispatch)
 
-
-
-export default connect(mapStateToProps, mapDispatchToProps)(FormContato);
+export default connect(mapStateToProps, mapDispatchToProps)(FormContato)
