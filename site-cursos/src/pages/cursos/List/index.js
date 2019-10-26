@@ -1,20 +1,24 @@
-import React from 'react';
+import React from 'react'
 
 export default class Lista extends React.Component {
 
-   exibirLinhas = () => {
-        //retorna a lista de props se existir
-        const cursos = this.props.dados || [];
+    exibirLinhas = () => {
+        const cursos = this.props.batatas || [];
         return cursos.map(curso => (
             <tr key={curso._id}>
                 <td>{curso.codigo}</td>
                 <td>{curso.descricao}</td>
+                <td><button className="btn btn-danger"
+                    onClick={() => this.props.removerCurso(curso)}>
+                    <i className="fa fa-trash-o"></i>
+                </button>
+                </td>
             </tr>
         ));
     }
 
     render() {
-        console.log(this.props.dados)
+
         return (
             <div>
                 <h3>Lista de Cursos</h3>
@@ -23,6 +27,7 @@ export default class Lista extends React.Component {
                         <tr>
                             <th>Código</th>
                             <th>Descrição</th>
+                            <th>Ação</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -32,5 +37,4 @@ export default class Lista extends React.Component {
             </div>
         )
     }
-
 }
