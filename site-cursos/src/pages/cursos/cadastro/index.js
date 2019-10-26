@@ -8,13 +8,19 @@ const URL = "http://localhost:3200/api/curso"
 
 export default class Cadastro extends React.Component {
 
-    state = {
+    initialState = {
+        _id: "",
         data: [],
         codigo: 0,
         descricao: '',
         cargaHoraria: 0,
         preco: 0.0,
         categoria: 'REDES'
+    }
+
+    constructor(props) {
+        super(props)
+        this.state = this.initialState
     }
 
     componentWillMount() {
@@ -25,67 +31,83 @@ export default class Cadastro extends React.Component {
         axios.get(URL).then(response => this.setState({ ...this.state, data: response.data }))
     }
 
-    removerCurso = function(curso){
-        if(window.confirm("Você realmente deseja deletar o curso selecionado?")){
-            axios.delete(`${URL}/${curso._id}`).then(_ =>{
-                    alert(`Curso ${curso.descricao} foi removido com sucesso`)
-                    this.listar();
+    removerCurso = function (curso) {
+        if (window.confirm("Você realmente deseja deletar o curso selecionado?")) {
+            axios.delete(`${URL}/${curso._id}`).then(_ => {
+                alert(`Curso ${curso.descricao} foi removido com sucesso`)
+                this.listar();
             }).catch(error => {
                 console.log(error)
             })
         }
+
+    }
+    consultarCurso = function (curso) {
+        this.setState({
+            ...this.setState,
+            _id: curso._id,
+            codigo: curso.codigo,
+            preco: curso.preco,
+            categoria: curso.categoria,
+            cargaHoraria: curso.cargaHoraria,
+            descricao: curso.descricao
+        })
         
+    }
+
+    callbackError = function (error) {
+        const cargaHoraria = error.response.data.errors.cargaHoraria
+        const codigo = error.response.data.errors.codigo
+        const preco = error.response.data.errors.preco
+        const descricao = error.response.data.errors.descricao
+        const categoria = error.response.data.errors.categoria
+
+        var texto = ''
+
+        if (cargaHoraria) {
+            texto += 'Carga horária Inválida\n'
+        }
+
+        if (codigo) {
+            texto += 'Código Inválido\n'
+        }
+
+        if (preco) {
+            texto += 'Preço Inválido\n'
+        }
+        if (descricao) {
+            texto += 'Descrição Inválida\n'
+        }
+        if (categoria) {
+            texto += 'Categoria Inválida\n'
+        }
+        alert(texto)
+    }
+
+    callbackSuccess = function (msg){
+        alert(msg);
+        this.setState(this.initialState)
+        this.listar();
     }
 
     adicionarCurso(e) {
         console.log('inicio adicionarCurso')
         e.preventDefault();
-        const codigo = this.state.codigo;
-        const descricao = this.state.descricao;
-        const cargaHoraria = this.state.cargaHoraria;
-        const preco = this.state.preco;
-        const categoria = this.state.categoria;
-
+        const { _id, codigo, descricao, cargaHoraria, preco, categoria } = this.state;
         const body = { codigo, descricao, cargaHoraria, preco, categoria }
-
-        console.log(body)
-        axios.post(URL, body)
-            .then(_ => {
-                alert("Curso adicionado");
-                this.listar();
-                this.setState({codigo: 0,
-                    descricao: '',
-                    cargaHoraria: 0,
-                    preco: 0.0,
-                    categoria: 'REDES'})
-        }).catch(error => {
-            const cargaHoraria =  error.response.data.errors.cargaHoraria
-            const codigo =  error.response.data.errors.codigo
-            const preco =  error.response.data.errors.preco
-            const descricao =  error.response.data.errors.descricao
-            const categoria =  error.response.data.errors.categoria
-
-            var texto = ''
-
-            if(cargaHoraria){
-                texto += 'Carga horária Inválida\n'
-            }
-
-            if(codigo){
-                texto += 'Código Inválido\n'
-            }
-
-            if(preco){
-                texto += 'Preço Inválido\n'
-            }
-            if(descricao){
-                texto += 'Descrição Inválida\n'
-            }
-            if(categoria){
-                texto += 'Categoria Inválida\n'
-            }
-            alert(texto)
-        });
+       
+        if (_id && _id.trim() !== ''){
+            axios.put(`${URL}/${_id}`, body)
+                .then(_ => {
+                    this.callbackSuccess('Curso atualizado')
+                }).catch(this.callbackError);
+        } else {
+            axios.post(URL, body)
+                .then(_ => {
+                    this.callbackSuccess('Curso adicionado')
+                }).catch(this.callbackError);
+        }
+     
     }
 
     alteraCampos = function (target) {
@@ -121,11 +143,13 @@ export default class Cadastro extends React.Component {
                         preco={this.state.preco}
                         categoria={this.state.categoria}
                         adicionarCurso={this.adicionarCurso.bind(this)}
+                        textoBotao={this.state._id && this.state._id !=='' ? 'Atualizar' : 'Adicionar'}
                     />
                 </div>
                 <div className="col-md-6">
-                    <CursoList batatas={this.state.data} 
-                                removerCurso={this.removerCurso.bind(this)}
+                    <CursoList batatas={this.state.data}
+                        removerCurso={this.removerCurso.bind(this)}
+                        consultarCurso={this.consultarCurso.bind(this)}
                     />
                 </div>
             </div>
