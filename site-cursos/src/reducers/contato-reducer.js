@@ -1,5 +1,5 @@
 const INITIAL_STATE = {
-    data: '2019-06-16',
+    data: '2019-11-09',
     nome: '',
     email: '',
     assunto: ''

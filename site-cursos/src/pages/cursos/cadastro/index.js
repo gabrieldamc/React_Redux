@@ -1,6 +1,7 @@
 import React from 'react'
 import axios from 'axios'
 
+
 import CursoForm from '../Form'
 import CursoList from '../List'
 
@@ -8,19 +9,8 @@ const URL = "http://localhost:3200/api/curso"
 
 export default class Cadastro extends React.Component {
 
-    initialState = {
-        _id: "",
-        data: [],
-        codigo: 0,
-        descricao: '',
-        cargaHoraria: 0,
-        preco: 0.0,
-        categoria: 'REDES'
-    }
-
-    constructor(props) {
-        super(props)
-        this.state = this.initialState
+      constructor(props) {
+        super(props)     
     }
 
     componentWillMount() {
@@ -141,19 +131,13 @@ export default class Cadastro extends React.Component {
         return (
             <div className="row border-bottom">
                 <div className="col-md-6">
-                    <CursoForm alteraCampos={this.alteraCampos.bind(this)}
-                        codigo={this.state.codigo}
-                        descricao={this.state.descricao}
-                        cargaHoraria={this.state.cargaHoraria}
-                        preco={this.state.preco}
-                        categoria={this.state.categoria}
-                        adicionarCurso={this.adicionarCurso.bind(this)}
-                        textoBotao={this.state._id && this.state._id !=='' ? 'Atualizar' : 'Adicionar'}
+                    <CursoForm alteraCampos={this.alteraCampos.bind(this)}                   
+                        adicionarCurso={this.adicionarCurso.bind(this)}                       
                         limpar={this.limpar.bind(this)}
                     />
                 </div>
                 <div className="col-md-6">
-                    <CursoList batatas={this.state.data}
+                    <CursoList 
                         removerCurso={this.removerCurso.bind(this)}
                         consultarCurso={this.consultarCurso.bind(this)}
                     />

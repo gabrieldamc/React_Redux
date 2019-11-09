@@ -9,6 +9,21 @@ import {
     adicionaContato
 } from '../../../actions/contato-actions'
 
+const mapStateToProps = state => ({
+    data : state.contato.data,
+    nome : state.contato.nome,
+    email : state.contato.email,
+    assunto : state.contato.assunto
+}) 
+
+const mapDispatchToProps = dispatch => bindActionCreators({
+    alteraData,
+    alteraAssunto,
+    alteraEmail,
+    alteraNome,
+    adicionaContato
+}, dispatch)
+
 class FormContato extends React.Component {
     
     adicionar = function(e) {
@@ -84,19 +99,6 @@ class FormContato extends React.Component {
     }
 }
 
-const mapStateToProps = state => ({
-    data : state.contato.data,
-    nome : state.contato.nome,
-    email : state.contato.email,
-    assunto : state.contato.assunto
-}) 
 
-const mapDispatchToProps = dispatch => bindActionCreators({
-    alteraData,
-    alteraAssunto,
-    alteraEmail,
-    alteraNome,
-    adicionaContato
-}, dispatch)
 
 export default connect(mapStateToProps, mapDispatchToProps)(FormContato)
